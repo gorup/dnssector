@@ -398,7 +398,7 @@ pub trait RdataIterable {
     }
 
     /// Retrieves the value of a `TXT` record
-    fn rr_txt(&self) -> Result<Vec<u8>, failure::Error>
+    fn rr_txt(&self) -> Result<Vec<u8>, Error>
     where
         Self: DNSIterable + TypedIterable,
     {
@@ -408,7 +408,7 @@ pub trait RdataIterable {
                 assert!(rdata.len() >= DNS_RR_HEADER_SIZE);
                 Ok(rdata[DNS_RR_HEADER_SIZE..DNS_RR_HEADER_SIZE + self.rr_rdlen()].to_vec())
             }
-            _ => xbail!(DSError::ParseError),
+            _ => bail!(DSError::ParseError),
         }
     }
 
